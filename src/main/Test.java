@@ -3,8 +3,11 @@ package main;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Test {
 	
@@ -42,27 +45,35 @@ public class Test {
 
 
 	public static void main(String[] args) throws ParseException {
-		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String aString = "2018-06-02 10:41:27";
 		
-		Date t1 = stampToDate("2016/01/28 00:00:19.000000000");
-		Date t2 = stampToDate("2016/01/29 00:00:29.000000000");
-		String aString = "2016/01/27 00:00:20.000000000";
-		System.out.println(aString.length());
-		System.out.println(aString.substring(0, 19));
-		/*
-		 * System.out.println(sdf.parse(t1).getTime());
-		 * System.out.println(sdf.parse(t2).getTime());
-		 * System.out.println(sdf.parse(t1).getTime()-sdf.parse(t2).getTime()); long
-		 * timeInterval = (sdf.parse(t1).getTime()-sdf.parse(t2).getTime())/1000/60/60;
-		 */
-		System.out.println(t1 + " " + t2);
-		long timeInterval = t1.getTime()-t2.getTime();
-		double res = timeInterval/(double)1000/60/60;
-
-		System.out.println(timeInterval);
-		System.out.println(res);
-		//System.out.println(stampToDate(string));
-
+		System.out.println(aString.substring(0, 12));
 	}
 
 }
+
+
+
+
+/*
+ * if(oDCoeMap.containsKey(key)){ Map<String, ArrayList<String>> infoMap =
+ * oDCoeMap.get(enId + "," + exId); if(infoMap.containsKey(date + "," +
+ * vehFlag)) {//第一项通行量，第二项总时间，第三项距离 ArrayList<String> infoList =
+ * infoMap.get(date + "," + vehFlag);
+ * 
+ * int txl = Integer.parseInt(infoList.get(0)); txl ++; infoList.set(0, txl +
+ * "");
+ * 
+ * double totalTime = Double.parseDouble(infoList.get(1)); totalTime +=
+ * travelTime; infoList.set(1, totalTime + ""); }else { ArrayList<String>
+ * infoList = new ArrayList<>(); infoList.set(0, "1"); infoList.set(1,
+ * travelTime + ""); infoList.set(2, instance); infoMap.put(date + "," +
+ * vehFlag, infoList); } }else { Map<String, ArrayList<String>> infoMap = new
+ * HashMap<>();
+ * 
+ * ArrayList<String> infoList = new ArrayList<>(); infoList.set(0, "1");
+ * infoList.set(1, travelTime + ""); infoList.set(2, instance);
+ * 
+ * infoMap.put(date + "," + vehFlag, infoList); oDCoeMap.put(enId + "," + exId,
+ * infoMap); }
+ */

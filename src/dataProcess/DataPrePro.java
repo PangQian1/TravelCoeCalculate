@@ -28,7 +28,7 @@ import java.util.Map;
 
 public class DataPrePro {
 	
-	private static String data18 = "I:\\pangqian\\data\\cq系数计算\\proData";
+	private static String data18 = "I:\\pangqian\\data\\cq系数计算\\重庆数据";
 	private static String data18res = "I:\\pangqian\\data\\cq系数计算\\res";
 	
 	public static void checkExsistence(String path){
@@ -118,7 +118,7 @@ public class DataPrePro {
 							writer.write(resRec);
 						}else{
 							records.add("" + count);
-							//System.out.println(line);
+							System.out.println(line);
 						}
 				
 					}
