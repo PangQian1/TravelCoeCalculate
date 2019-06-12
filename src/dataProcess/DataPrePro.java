@@ -29,7 +29,7 @@ import java.util.Map;
 public class DataPrePro {
 	
 	private static String data18 = "I:\\pangqian\\data\\cq系数计算\\重庆数据";
-	private static String data18res = "I:\\pangqian\\data\\cq系数计算\\res";
+	private static String data18res = "I:\\programData\\chongqingCoeCal\\preData";
 	
 	public static void checkExsistence(String path){
 		File file=new File(path);
@@ -97,7 +97,7 @@ public class DataPrePro {
 							String vehClassCode = lineArray[13].trim();//车类代码
 							String vehFlag = lineArray[28].trim();//客货车标识
 							
-							if(exTime.equals("0") || exTime.equals("0") || exId.equals("0") || enId.equals("0")){
+							if(exTime.equals("0") || exTime.equals("0") || exId.equals("0") || enId.equals("0") || exId.equals(enId)){
 								//System.out.println(line);
 								continue;
 							}
@@ -106,7 +106,7 @@ public class DataPrePro {
 							Date enDate = sdf.parse(enTime);
 							long timeInterval = (exDate.getTime() - enDate.getTime());
 							
-							if(timeInterval < 0){
+							if(timeInterval <= 0){
 								continue;
 							}
 							
@@ -118,7 +118,7 @@ public class DataPrePro {
 							writer.write(resRec);
 						}else{
 							records.add("" + count);
-							System.out.println(line);
+							//System.out.println(line);
 						}
 				
 					}
@@ -137,8 +137,20 @@ public class DataPrePro {
 		System.out.println("******************16-19年数据预处理完毕*************");
 	}
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws ParseException {
 		preData(data18, data18res);
+		
+		/*
+		 * SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); String
+		 * enTime = stampToDate("2018/01/01 00:01:38.000000000"); String exTime =
+		 * stampToDate("2018/01/01 00:06:17.000000000");
+		 * 
+		 * Date exDate = sdf.parse(exTime); Date enDate = sdf.parse(enTime); long
+		 * timeInterval = (exDate.getTime() - enDate.getTime());
+		 * 
+		 * double travelTime = timeInterval/(double)1000;
+		 * System.out.println(travelTime);
+		 */
 	}
 
 }

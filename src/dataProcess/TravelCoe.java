@@ -37,12 +37,32 @@ public class TravelCoe {
 		try {
 			OutputStreamWriter writerStream = new OutputStreamWriter(new FileOutputStream(path), "utf-8");
 			BufferedWriter writer = new BufferedWriter(writerStream);
-			writer.write("入口ID,出口ID,日期,车型,日通行量,出行系数" + "/n");
+			writer.write("入口ID,出口ID,日期,车型,日通行量,总时间,距离,出行系数" + "\n");
 			for (String key : dataMap.keySet()) {//第一项通行量，第二项总时间，第三项距离
 				ArrayList<String> list = dataMap.get(key);
 				String info = list.get(0) + "," +list.get(1) + "," + list.get(2);
 				double travelCoe = (Double.parseDouble(list.get(1))/Double.parseDouble(list.get(0)))/Double.parseDouble(list.get(2));
 				writer.write(key + "," + info + "," + travelCoe);
+				
+				writer.write("\n");
+				writer.flush();
+			}
+			writer.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		System.out.println(path + "  writed !");
+	}
+	
+	public static void writeProData(String path, Map<String, String> dataMap) {
+		// 写文件
+		System.out.println(path + "  writing !");
+		try {
+			OutputStreamWriter writerStream = new OutputStreamWriter(new FileOutputStream(path), "utf-8");
+			BufferedWriter writer = new BufferedWriter(writerStream);
+
+			for (String key : dataMap.keySet()) {//第一项通行量，第二项总时间，第三项距离
+				writer.write(key);
 				
 				writer.write("\n");
 				writer.flush();
@@ -100,6 +120,7 @@ public class TravelCoe {
 				List<String> listIn = Arrays.asList(fileIn.list());
 				
 				String year = "";
+Map<String, String> proOD = new HashMap<>();
 				
 				for(int j = 0;j < listIn.size(); j++){
 					//依次处理每一个文件
@@ -125,7 +146,7 @@ public class TravelCoe {
 							int vehType = GetVehInfo.getVehicleType(vehFlag, vehTypeCode);//车辆类别
 							String instance = oDInstanceMap.get(enId + "," + exId);
 							
-							String key = enId + "," + exId + "," + date + "," + vehFlag;
+							String key = enId + "," + exId + "," + date + "," + vehType;
 							if(oDCoeMap.containsKey(key)){//第一项通行量，第二项总时间，第三项距离
 								ArrayList<String> infoList = oDCoeMap.get(key);
 								
@@ -144,7 +165,11 @@ public class TravelCoe {
 								infoList.add(travelTime + "");
 								infoList.add(instance);
 								
-								oDCoeMap.put(key, infoList);
+								if(instance == null) {
+									proOD.put(enId + "," + exId, "");
+								}else { 
+									oDCoeMap.put(key, infoList);
+								}
 							}
 
 						}else{
@@ -160,6 +185,8 @@ public class TravelCoe {
 				String outPath = travelCoePath + "/" + year + ".csv";
 				writeData(outPath, oDCoeMap);
 				oDCoeMap = new HashMap<>();
+writeProData(travelCoePath + "/" + year + "pro.csv", proOD);
+System.out.println(proOD.size());
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
