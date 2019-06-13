@@ -20,7 +20,7 @@ import dao.GetVehInfo;;
 
 public class TravelCoe {
 	
-	private static String preDataPath = "I:\\programData\\chongqingCoeCal\\18-19";
+	private static String preDataPath = "I:\\programData\\chongqingCoeCal\\preData";
 	private static String travelCoePath = "I:\\programData\\chongqingCoeCal\\travelCoePerYear";
 	private static String oDInstancePath = "I:\\pangqian\\data\\cq系数计算\\收费站最短距离20160623104640.csv";
 	
@@ -121,7 +121,7 @@ public class TravelCoe {
 				
 				String year = "";
 Map<String, String> proOD = new HashMap<>();
-				
+//int count = 0;//用来计算共有多少条数据未计算出最短距离
 				for(int j = 0;j < listIn.size(); j++){
 					//依次处理每一个文件
 					String pathIn = path+"/"+listIn.get(j);
@@ -167,6 +167,7 @@ Map<String, String> proOD = new HashMap<>();
 								
 								if(instance == null) {
 									proOD.put(enId + "," + exId, "");
+									//count++;
 								}else { 
 									oDCoeMap.put(key, infoList);
 								}
@@ -180,13 +181,15 @@ Map<String, String> proOD = new HashMap<>();
 					reader.close();
 
 					System.out.println(pathIn + " read finish!");
-				}
-				
-				String outPath = travelCoePath + "/" + year + ".csv";
-				writeData(outPath, oDCoeMap);
-				oDCoeMap = new HashMap<>();
+					String outPath = travelCoePath + "/" + year + ".csv";
+					writeData(outPath, oDCoeMap);
+					oDCoeMap = new HashMap<>();
 writeProData(travelCoePath + "/" + year + "pro.csv", proOD);
 System.out.println(proOD.size());
+//System.out.println(count);
+				}
+	
+				
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -112,6 +112,10 @@ public class DataPrePro {
 							
 							double travelTime = timeInterval/(double)1000;
 							
+							if(travelTime > 172800 || travelTime < 120) {
+								continue;
+							}
+							
 							String resRec = exId + "," + enId + "," + exTime + "," + enTime + "," + travelTime + ","
 											+ vehTypeCode + "," + vehClassCode + "," + vehFlag + "\n";
 							
