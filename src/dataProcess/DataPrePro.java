@@ -17,6 +17,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import dao.io;
+
 
 
 /**
@@ -141,8 +143,52 @@ public class DataPrePro {
 		System.out.println("******************16-19年数据预处理完毕*************");
 	}
 
+	public static void moveToOneFile(String in,String out){//将18-19年数据转成以月为单位存储
+		try{
+			File file = new File(in);
+			List<String> list = Arrays.asList(file.list());
+			for(int i = 0;i < list.size(); i++){
+				if(list.get(i).equals("16-17")) {
+					continue;
+				}
+				
+				String path = in + "/" + list.get(i);
+				File fileIn = new File(path);
+				
+				String outIn = out + "/" + list.get(i).substring(0,4);
+				
+				checkExsistence(outIn);
+				String outPath = outIn + "/" + list.get(i) + ".csv";
+				BufferedWriter writer = io.getWriter(outPath, "utf-8");
+				List<String> listIn = Arrays.asList(fileIn.list());
+				
+				for(int j = 0;j < listIn.size();j++){
+					String pathIn = path + "/" + listIn.get(j);
+					BufferedReader reader = io.getReader(pathIn, "utf-8");
+					System.out.println(pathIn + "  start reading!");
+					String line = "";
+					if(j > 0) {
+						line = reader.readLine();//表头
+					}
+					while((line = reader.readLine()) != null){
+						writer.write(line + "\n");
+					}
+					reader.close();
+					System.out.println(pathIn + "  read finished!");
+				}
+				writer.flush();
+				writer.close();
+				System.out.println(outPath + "  write finished!!!!!!!");
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+	
 	public static void main(String[] args) throws ParseException {
 		preData(data18, data18res);
+		
+		moveToOneFile(data18res, data18res);
 		
 		/*
 		 * SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); String
