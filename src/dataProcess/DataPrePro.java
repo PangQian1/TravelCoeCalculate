@@ -143,7 +143,7 @@ public class DataPrePro {
 		System.out.println("******************16-19年数据预处理完毕*************");
 	}
 
-	public static void moveToOneFile(String in,String out){//将18-19年数据转成以月为单位存储
+	public static void moveToOneFile(String in,String out){//将经过预处理之后的18-19年数据转成以月为单位存储
 		try{
 			File file = new File(in);
 			List<String> list = Arrays.asList(file.list());

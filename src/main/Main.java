@@ -14,8 +14,8 @@ public class Main {
 	private static String oDInstancePath = "/home/pq/系数计算/相关文件/收费站最短距离20160623104640.csv";
 
 	public static void main(String[] args) {
-		//DataPrePro.preData(dataOri, dataRes);
-		//DataPrePro.moveToOneFile(dataRes, dataRes);
+		DataPrePro.preData(dataOri, dataRes);
+		DataPrePro.moveToOneFile(dataRes, dataRes);
 		TravelCoe.travelCoeCal(dataRes, travelCoePath, oDInstancePath);
 	}
 
