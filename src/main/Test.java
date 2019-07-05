@@ -1,5 +1,8 @@
 package main;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -32,8 +35,7 @@ public class Test {
 		Date date=sdf1.parse(s);
 		rs=sdf2.format(date);
 		return rs;
-	}*/
-	
+	}*/	
 
 	//获取时间差方法    
     public static long getTime(Date currentTime,Date firstTime){
@@ -43,11 +45,37 @@ public class Test {
         return diff;
     }
 
+	
+	public static void txlIntegration(String travelCoeFilePath) {
+		int count = 0;
 
+		InputStreamReader inStream;
+		try {
+			inStream = new InputStreamReader(new FileInputStream(travelCoeFilePath), "UTF-8");
+			BufferedReader reader = new BufferedReader(inStream);
+
+			String line = reader.readLine();
+			while ((line = reader.readLine()) != null) {
+				String lineArray[] = line.split(",");
+
+				int txl = Integer.parseInt(lineArray[4]);
+				if(txl >= 60) {
+					count++;
+				}
+			}
+
+			reader.close();
+			System.out.println(count);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+    
 	public static void main(String[] args) throws ParseException {
-		String aString = "2018-06-02 10:41:27";
+		//String aString = "2018-06-02 10:41:27";
 		
-		System.out.println(aString.substring(0, 12));
+		//System.out.println(aString.substring(0, 12));
+		txlIntegration("I:\\programData\\chongqingCoeCal\\travelCoePerYear01\\16-19出行系数结果.csv");
 	}
 
 }
