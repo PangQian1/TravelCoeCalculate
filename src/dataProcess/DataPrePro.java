@@ -114,7 +114,7 @@ public class DataPrePro {
 							
 							double travelTime = timeInterval/(double)1000;
 							
-							if(travelTime > 172800 || travelTime < 120) {
+							if(travelTime > 172800 || travelTime < 120) {//时间高于48小时或者低于两分钟均排除
 								continue;
 							}
 							
